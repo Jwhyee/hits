@@ -1,43 +1,59 @@
 package com.example.hits.controller
 
 import com.example.hits.service.HitService
-import com.example.hits.util.AutowireHelper
-import com.example.hits.web.controller.HitController
 import io.kotest.core.spec.style.BehaviorSpec
+import io.kotest.extensions.spring.SpringExtension
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
 import io.mockk.every
 import io.mockk.mockk
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.context.TestConfiguration
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
+import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 
-@Import(HitController::class)
-@WebMvcTest(HitController::class)
-class HitControllerTest : BehaviorSpec({
+@SpringBootTest
+@AutoConfigureMockMvc
+@Import(HitControllerTest.TestConfig::class)
+class HitControllerTest : BehaviorSpec() {
 
-    val hitService = mockk<HitService>()
+    @Autowired
+    private lateinit var mockMvc: MockMvc
 
-    val mockMvc = AutowireHelper.autoWireMockMvc(HitController(hitService))
+    @Autowired
+    private lateinit var hitService: HitService
 
-    Given("GET /api/count/incr/badge.svg") {
-        val testUrl = "https://github.com/test/repo"
-        val expectedCount = 42
+    init {
+        extension(SpringExtension)
 
-        every { hitService.increment(testUrl) } returns expectedCount
+        beforeSpec {
+            every { hitService.increment("https://github.com/test/repo") } returns 42
+        }
 
-        When("valid request with default parameters is made") {
-            val result = mockMvc.perform(
-                get("/api/count/incr/badge.svg")
-                    .param("url", testUrl)
-            ).andReturn().response
+        given("GET /api/count/incr/badge.svg") {
+            `when`("called with valid url") {
+                then("should return valid SVG") {
+                    val result = mockMvc.perform(
+                        get("/api/count/incr/badge.svg")
+                            .param("url", "https://github.com/test/repo")
+                    ).andReturn().response
 
-            Then("it should return a valid SVG with status 200") {
-                result.status shouldBe 200
-                result.contentType shouldBe "image/svg+xml"
-                result.contentAsString shouldContain expectedCount.toString()
-                result.contentAsString shouldContain "<svg"
+                    result.status shouldBe 200
+                    result.contentType shouldBe "image/svg+xml"
+                    result.contentAsString shouldContain "<svg"
+                    result.contentAsString shouldContain "42"
+                }
             }
         }
     }
-})
+
+    @TestConfiguration
+    class TestConfig {
+        @Bean
+        fun hitService(): HitService = mockk(relaxed = true)
+    }
+}
