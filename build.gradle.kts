@@ -22,12 +22,20 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    runtimeOnly("com.mysql:mysql-connector-j")
+
+
+    // Kotest core
     testImplementation("io.kotest:kotest-runner-junit5:5.9.0")
+    testImplementation("io.kotest:kotest-assertions-core:5.9.0")
     testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.2")
+
+    // Spring Test
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude(module = "junit")
+        exclude(module = "junit") // Kotest를 쓰기 때문에 JUnit 제거
     }
+
+    // Mocking
+    testImplementation("io.mockk:mockk:1.13.8")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
