@@ -67,7 +67,7 @@ The implementation here is completely rewritten using Kotlin and Spring Boot.
 
 ```
 MIT License  
-Copyright (c) 2025 YOUR_NAME
+Copyright (c) 2025 Jwhyee
 ```
 
 For more details, see the [`LICENSE`](./LICENSE) file.
