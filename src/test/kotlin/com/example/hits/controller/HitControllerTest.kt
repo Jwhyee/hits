@@ -5,6 +5,7 @@ import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.extensions.spring.SpringExtension
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
+import io.kotest.mpp.log
 import io.mockk.every
 import io.mockk.mockk
 import org.springframework.beans.factory.annotation.Autowired
@@ -41,6 +42,8 @@ class HitControllerTest : BehaviorSpec() {
                         get("/api/count/incr/badge.svg")
                             .param("url", "https://github.com/test/repo")
                     ).andReturn().response
+
+                    println("SVG 응답: ${result.contentAsString}")
 
                     result.status shouldBe 200
                     result.contentType shouldBe "image/svg+xml"
