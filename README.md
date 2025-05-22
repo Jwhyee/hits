@@ -9,7 +9,7 @@ Built with Spring Boot and Kotlin, this service increases the view count based o
 ![Hits](https://your-domain.com/api/count/incr/badge.svg?url=https://github.com/your/repo)
 ```
 
-![Hits](https://your-domain.com/api/count/incr/badge.svg?url=https://github.com/your/repo)
+<!-- ![Hits](https://your-domain.com/api/count/incr/badge.svg?url=https://github.com/your/repo) -->
 
 ---
 
