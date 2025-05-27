@@ -6,11 +6,8 @@ Built with Spring Boot and Kotlin, this service increases the view count based o
 ## 📸 Example
 
 ```markdown
-![Hits](https://your-domain.com/api/count/incr/badge.svg?url=https://github.com/your/repo)
+![Hits](http://hit-s.kro.kr:8080/count/badge?url=https://github.com/Jwhyee)
 ```
-
-<!-- ![Hits](https://your-domain.com/api/count/incr/badge.svg?url=https://github.com/your/repo) -->
-
 
 ---
 
