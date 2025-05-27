@@ -4,13 +4,14 @@ import com.example.hits.service.HitService
 import com.example.hits.web.util.SvgBadgeGenerator
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
+import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
-@RestController
-@RequestMapping("/api/count")
+@Controller
+@RequestMapping("/count")
 class HitController(
     private val hitService: HitService
 ) {
@@ -19,7 +20,7 @@ class HitController(
         const val MEDIA_TYPE_SVG = "image/svg+xml"
     }
 
-    @GetMapping("/incr/badge.svg", produces = [MEDIA_TYPE_SVG])
+    @GetMapping("/badge", produces = [MEDIA_TYPE_SVG])
     fun incrementAndGetBadge(
         @RequestParam url: String,
         @RequestParam(required = false, defaultValue = "Hits") title: String,
