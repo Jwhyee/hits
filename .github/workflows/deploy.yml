@@ -32,11 +32,11 @@ jobs:
 
       # 4. Docker 이미지 빌드
       - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/your-image-name:latest .
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/hits-backend:latest .
 
       # 5. Docker Hub에 이미지 푸시
       - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/your-image-name:latest
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/hits-backend:latest
 
       # 6. EC2 인스턴스 접속 준비 (SSH agent 세팅)
       - name: Setup SSH
