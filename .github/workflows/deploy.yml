@@ -9,13 +9,28 @@ jobs:
     runs-on: self-hosted
 
     steps:
+      # 1. GitHub 저장소 코드 체크아웃
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 2. Docker Hub 로그인
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      # 3. Docker 이미지 빌드
+      - name: Build Docker image
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/your-image-name:latest .
+
+      # 4. Docker Hub에 이미지 푸시
+      - name: Push Docker image
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/your-image-name:latest
+
+      # 5. EC2 인스턴스 접속 준비 (SSH agent 세팅)
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
+      # 6. EC2에 접속하여 deploy.sh 실행 (Docker pull & run 포함되어야 함)
       - name: Deploy to EC2
         run: ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} './deploy.sh'
