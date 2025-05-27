@@ -35,7 +35,7 @@ class HitControllerTest : BehaviorSpec() {
             every { hitService.increment("https://github.com/test/repo") } returns 42
         }
 
-        given("GET /api/count/incr/badge.svg") {
+        given("GET /count/badge") {
             `when`("called with valid url") {
                 then("should return valid SVG") {
                     val result = mockMvc.perform(
