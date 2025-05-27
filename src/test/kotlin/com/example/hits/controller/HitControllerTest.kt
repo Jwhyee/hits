@@ -1,24 +1,22 @@
 package com.example.hits.controller
 
 import com.example.hits.service.HitService
+import com.example.hits.web.controller.HitController
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.extensions.spring.SpringExtension
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
-import io.kotest.mpp.log
 import io.mockk.every
 import io.mockk.mockk
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@WebMvcTest(HitController::class)
 @Import(HitControllerTest.TestConfig::class)
 class HitControllerTest : BehaviorSpec() {
 
@@ -39,7 +37,7 @@ class HitControllerTest : BehaviorSpec() {
             `when`("called with valid url") {
                 then("should return valid SVG") {
                     val result = mockMvc.perform(
-                        get("/api/count/incr/badge.svg")
+                        get("/count/badge")
                             .param("url", "https://github.com/test/repo")
                     ).andReturn().response
 
