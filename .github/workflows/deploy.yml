@@ -46,4 +46,4 @@ jobs:
 
       # 7. EC2에 접속하여 deploy.sh 실행 (Docker pull & run 포함되어야 함)
       - name: Deploy to EC2
-        run: ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} './deploy.sh'
+        run: ssh -v -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} './deploy.sh'
