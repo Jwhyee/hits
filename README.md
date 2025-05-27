@@ -9,6 +9,8 @@ Built with Spring Boot and Kotlin, this service increases the view count based o
 ![Hits](http://hit-s.kro.kr:8080/count/badge?url=https://github.com/Jwhyee)
 ```
 
+![Hits](http://hit-s.kro.kr:8080/count/badge?url=https://github.com/Jwhyee)
+
 ---
 
 ## 🚀 Features
