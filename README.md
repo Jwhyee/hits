@@ -26,11 +26,9 @@ It will render like this:
 
 - Increments view count for a specified `url`
 - Dynamically generates SVG badge with:
-    - Custom `title` (left label)
     - Custom `color` (right label background)
     - Custom `icon` (left-side emoji)
 - Lightweight and fast: In-memory storage using `ConcurrentHashMap`
-- Easily extendable to Redis or a relational database
 
 ---
 
@@ -48,12 +46,11 @@ GET /api/count/badge?url={URL}&title={TITLE}&color={COLOR}&icon={ICON}
 GET /api/count/badge?url=https://github.com/your/repo&title=Views&color=green&icon=zap
 ```
 
-| Parameter | Description                            | Default |
-|-----------|----------------------------------------|---------|
-| `url`     | Target URL to track view count         | *Required* |
-| `title`   | Left-side badge label                  | `Hits`  |
-| `color`   | Right-side badge background color      | `blue`  |
-| `icon`    | Left-side emoji icon (e.g. `zap`, `fire`, `star`) | `zap` |
+| Parameter | Description                            |
+|-----------|----------------------------------------|
+| `url`     | Target URL to track view count         |
+| `color`   | Right-side badge background color      |
+| `icon`    | Left-side emoji icon (e.g. `zap`, `fire`, `star`) |
 
 ---
 
@@ -68,9 +65,7 @@ GET /api/count/badge?url=https://github.com/your/repo&title=Views&color=green&ic
 
 ## 🧠 Inspiration
 
-This project was inspired by:
-
-- [`gjbae1212/hit-counter`](https://github.com/gjbae1212/hit-counter) – MIT License
+This project was inspired by [`gjbae1212/hit-counter`](https://github.com/gjbae1212/hit-counter) – MIT License
 
 The implementation here is completely rewritten using Kotlin and Spring Boot.
 
