@@ -3,6 +3,7 @@ package com.example.hits.web.controller
 import com.example.hits.service.HitService
 import com.example.hits.web.util.SvgBadgeGenerator
 import org.slf4j.LoggerFactory
+import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
@@ -35,6 +36,11 @@ class HitController(
 
         val svg = SvgBadgeGenerator.generate(title, count, color, icon)
 
-        return ResponseEntity.ok().contentType(MediaType.parseMediaType(MEDIA_TYPE_SVG)).body(svg)
+        return ResponseEntity.ok()
+            .contentType(MediaType.parseMediaType(MEDIA_TYPE_SVG))
+            .header(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, must-revalidate")
+            .header(HttpHeaders.PRAGMA, "no-cache")
+            .header(HttpHeaders.EXPIRES, "0")
+            .body(svg)
     }
 }
