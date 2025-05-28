@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hit Badge Generator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .container {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input[type="text"], input[type="color"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .icon-option {
+            display: inline-block;
+            margin-right: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .icon-option.selected {
+            border-color: #4CAF50;
+            background: #eaffea;
+        }
+
+        .icon-option img {
+            width: 32px;
+            height: 32px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            width: 100%;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .preview {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>GitHub Hits Badge Generator</h2>
+
+    <div class="form-group">
+        <label for="url">GitHub URL</label>
+        <input type="text" id="url" placeholder="https://github.com/username/repo" />
+        <div id="url-error" style="color: red; font-size: 13px; display: none; margin-top: 4px;">
+            Please enter a valid GitHub URL.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="color">Background Color</label>
+        <input type="color" id="color" value="#4CAF50" />
+    </div>
+
+    <div class="form-group">
+        <label>Icon</label>
+        <div id="icon-options">
+            <div class="icon-option selected" data-icon="zap">
+                <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/26a1.svg" alt="Zap">
+            </div>
+            <div class="icon-option" data-icon="fire">
+                <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f525.svg" alt="Fire">
+            </div>
+            <div class="icon-option" data-icon="heart">
+                <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/2764.svg" alt="Heart">
+            </div>
+            <div class="icon-option" data-icon="star">
+                <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/2b50.svg" alt="Star">
+            </div>
+        </div>
+        <input type="hidden" id="icon" value="zap" />
+    </div>
+
+    <button onclick="generateBadge()">Generate</button>
+
+    <div class="preview" id="preview">
+        <!-- badge will show here -->
+    </div>
+</div>
+
+<script>
+    // 아이콘 선택 기능
+    document.querySelectorAll('.icon-option').forEach(el => {
+        el.addEventListener('click', () => {
+            document.querySelectorAll('.icon-option').forEach(opt => opt.classList.remove('selected'));
+            el.classList.add('selected');
+            document.getElementById('icon').value = el.getAttribute('data-icon');
+        });
+    });
+
+    function generateBadge() {
+        const urlInput = document.getElementById('url');
+        const url = urlInput.value.trim();
+        const urlError = document.getElementById('url-error');
+
+        if (!url) {
+            urlError.style.display = 'block';
+            return;
+        } else {
+            urlError.style.display = 'none';
+        }
+
+        const encodedUrl = encodeURIComponent(url);
+        const color = document.getElementById('color').value.replace('#', '');
+        const icon = document.getElementById('icon').value;
+
+        const apiUrl = `/api/count/badge?url=${encodedUrl}&color=${color}&icon=${icon}`;
+
+        fetch(apiUrl)
+            .then(res => res.text())
+            .then(svg => {
+                document.getElementById('preview').innerHTML = svg;
+            })
+            .catch(err => {
+                document.getElementById('preview').innerHTML = `<p style="color: red;">Failed to load badge.</p>`;
+                console.error(err);
+            });
+    }
+</script>
+</body>
+</html>

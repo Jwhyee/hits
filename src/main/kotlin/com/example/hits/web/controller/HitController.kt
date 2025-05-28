@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
-@Controller
-@RequestMapping("/count")
+@RestController
+@RequestMapping("/api/count")
 class HitController(
     private val hitService: HitService
 ) {
@@ -23,11 +23,15 @@ class HitController(
     @GetMapping("/badge", produces = [MEDIA_TYPE_SVG])
     fun incrementAndGetBadge(
         @RequestParam url: String,
-        @RequestParam(required = false, defaultValue = "Hits") title: String,
-        @RequestParam(required = false, defaultValue = "blue") color: String
+        @RequestParam(required = false, defaultValue = "Hits") color: String,
+        @RequestParam(required = false, defaultValue = "blue") icon: String
     ): ResponseEntity<String> {
         val count = hitService.increment(url)
-        val svg = SvgBadgeGenerator.generate(title, count, color)
+
+        val title = url.substringAfterLast('/')
+
+        val svg = SvgBadgeGenerator.generate(title, count, color, icon)
+
         return ResponseEntity.ok().contentType(MediaType.parseMediaType(MEDIA_TYPE_SVG)).body(svg)
     }
 }
