@@ -1,24 +1,36 @@
 # Kotlin GitHub Hits Counter 🧮
 
-A simple hit counter for GitHub READMEs.  
-Built with Spring Boot and Kotlin, this service increases the view count based on a given URL and returns a **badge in SVG format**.
+A lightweight service to track and display view counts on GitHub README files using customizable SVG badges.  
+Built with Kotlin and Spring Boot.
+
+---
 
 ## 📸 Example
 
+You can use the following markdown to embed a badge:
+
 ```markdown
-![Hits](http://hit-s.kro.kr:8080/count/badge?url=https://github.com/Jwhyee)
+![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/Jwhyee&color=4caf50&icon=zap)
 ```
 
-![Hits](http://hit-s.kro.kr:8080/count/badge?url=https://github.com/Jwhyee)
+It will render like this:
+
+![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/Jwhyee&color=4caf50&icon=zap)
+
+👉 You can also generate a badge interactively at:  
+[https://hit-s.kro.kr/count/generate](https://hit-s.kro.kr/count/generate)
 
 ---
 
 ## 🚀 Features
 
-- Increments view count based on the specified `url`
-- Dynamically generates SVG badge (`title`, `color` customizable)
-- Built with Kotlin and Spring Boot
-- In-memory storage (easily extendable to Redis or database)
+- Increments view count for a specified `url`
+- Dynamically generates SVG badge with:
+    - Custom `title` (left label)
+    - Custom `color` (right label background)
+    - Custom `icon` (left-side emoji)
+- Lightweight and fast: In-memory storage using `ConcurrentHashMap`
+- Easily extendable to Redis or a relational database
 
 ---
 
@@ -27,35 +39,36 @@ Built with Spring Boot and Kotlin, this service increases the view count based o
 ### Endpoint
 
 ```
-GET /api/count/incr/badge.svg?url={URL}&title={TITLE}&color={COLOR}
+GET /api/count/badge?url={URL}&title={TITLE}&color={COLOR}&icon={ICON}
 ```
 
 ### Example
 
 ```
-GET /api/count/incr/badge.svg?url=https://github.com/your/repo&title=Views&color=green
+GET /api/count/badge?url=https://github.com/your/repo&title=Views&color=green&icon=zap
 ```
 
-| Parameter | Description                     | Default |
-|-----------|----------------------------------|---------|
-| `url`     | Target URL to track view count  | Required |
-| `title`   | Left-side badge label           | `Hits`  |
-| `color`   | Right-side badge color          | `blue`  |
+| Parameter | Description                            | Default |
+|-----------|----------------------------------------|---------|
+| `url`     | Target URL to track view count         | *Required* |
+| `title`   | Left-side badge label                  | `Hits`  |
+| `color`   | Right-side badge background color      | `blue`  |
+| `icon`    | Left-side emoji icon (e.g. `zap`, `fire`, `star`) | `zap` |
 
 ---
 
 ## 🧱 Tech Stack
 
-- Kotlin
-- Spring Boot (Web)
-- In-memory repository using ConcurrentHashMap
-- Simple text-based SVG generator
+- **Kotlin** – Concise and expressive JVM language
+- **Spring Boot** – Robust framework for RESTful APIs
+- **ConcurrentHashMap** – Fast in-memory repository
+- **SVG Generator** – Custom-built dynamic badge renderer
 
 ---
 
 ## 🧠 Inspiration
 
-This project was inspired by the following open-source project:
+This project was inspired by:
 
 - [`gjbae1212/hit-counter`](https://github.com/gjbae1212/hit-counter) – MIT License
 
@@ -65,9 +78,7 @@ The implementation here is completely rewritten using Kotlin and Spring Boot.
 
 ## 📄 License
 
-```
 MIT License  
-Copyright (c) 2025 Jwhyee
-```
+© 2025 Jwhyee
 
-For more details, see the [`LICENSE`](./LICENSE) file.
+See the [LICENSE](./LICENSE) file for full details.

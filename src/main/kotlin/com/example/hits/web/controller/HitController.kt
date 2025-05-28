@@ -23,8 +23,8 @@ class HitController(
     @GetMapping("/badge", produces = [MEDIA_TYPE_SVG])
     fun incrementAndGetBadge(
         @RequestParam url: String,
-        @RequestParam(required = false, defaultValue = "Hits") color: String,
-        @RequestParam(required = false, defaultValue = "blue") icon: String
+        @RequestParam(required = false, defaultValue = "blue") color: String,
+        @RequestParam(required = false, defaultValue = "zap") icon: String
     ): ResponseEntity<String> {
         val count = hitService.increment(url)
 
