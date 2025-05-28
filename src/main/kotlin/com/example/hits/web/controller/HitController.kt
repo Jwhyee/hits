@@ -2,6 +2,7 @@ package com.example.hits.web.controller
 
 import com.example.hits.service.HitService
 import com.example.hits.web.util.SvgBadgeGenerator
+import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam
 class HitController(
     private val hitService: HitService
 ) {
+    val logger = LoggerFactory.getLogger(HitController::class.java)
 
     companion object {
         const val MEDIA_TYPE_SVG = "image/svg+xml"
@@ -28,6 +30,8 @@ class HitController(
         val count = hitService.increment(url)
 
         val title = url.substringAfterLast('/')
+
+        logger.info("$title: $count")
 
         val svg = SvgBadgeGenerator.generate(title, count, color, icon)
 
