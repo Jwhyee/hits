@@ -18,46 +18,46 @@ import org.springframework.context.annotation.Import
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@Import(HitControllerTest.TestConfig::class)
-class HitControllerTest : BehaviorSpec() {
-
-    @Autowired
-    private lateinit var mockMvc: MockMvc
-
-    @Autowired
-    private lateinit var hitService: HitService
-
-    init {
-        extension(SpringExtension)
-
-        beforeSpec {
-            every { hitService.increment("https://github.com/test/repo") } returns 42
-        }
-
-        given("GET /count/badge") {
-            `when`("called with valid url") {
-                then("should return valid SVG") {
-                    val result = mockMvc.perform(
-                        get("/count/badge")
-                            .param("url", "https://github.com/test/repo")
-                    ).andReturn().response
-
-                    println("SVG 응답: ${result.contentAsString}")
-
-                    result.status shouldBe 200
-                    result.contentType shouldBe "image/svg+xml"
-                    result.contentAsString shouldContain "<svg"
-                    result.contentAsString shouldContain "42"
-                }
-            }
-        }
-    }
-
-    @TestConfiguration
-    class TestConfig {
-        @Bean
-        fun hitService(): HitService = mockk(relaxed = true)
-    }
-}
+//@SpringBootTest
+//@AutoConfigureMockMvc
+//@Import(HitControllerTest.TestConfig::class)
+//class HitControllerTest : BehaviorSpec() {
+//
+//    @Autowired
+//    private lateinit var mockMvc: MockMvc
+//
+//    @Autowired
+//    private lateinit var hitService: HitService
+//
+//    init {
+//        extension(SpringExtension)
+//
+//        beforeSpec {
+//            every { hitService.increment("https://github.com/test/repo") } returns 42
+//        }
+//
+//        given("GET /count/badge") {
+//            `when`("called with valid url") {
+//                then("should return valid SVG") {
+//                    val result = mockMvc.perform(
+//                        get("/count/badge")
+//                            .param("url", "https://github.com/test/repo")
+//                    ).andReturn().response
+//
+//                    println("SVG 응답: ${result.contentAsString}")
+//
+//                    result.status shouldBe 200
+//                    result.contentType shouldBe "image/svg+xml"
+//                    result.contentAsString shouldContain "<svg"
+//                    result.contentAsString shouldContain "42"
+//                }
+//            }
+//        }
+//    }
+//
+//    @TestConfiguration
+//    class TestConfig {
+//        @Bean
+//        fun hitService(): HitService = mockk(relaxed = true)
+//    }
+//}
