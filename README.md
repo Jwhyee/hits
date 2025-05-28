@@ -15,7 +15,7 @@ You can use the following markdown to embed a badge:
 
 It will render like this:
 
-![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/Jwhyee&color=4caf50)
+![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/Jwhyee&color=4caf50&icon=zap&t=2025052801)
 
 👉 You can also generate a badge interactively at:  
 [https://hit-s.kro.kr/count/generate](https://hit-s.kro.kr/count/generate)
