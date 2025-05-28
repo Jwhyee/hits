@@ -10,12 +10,12 @@ Built with Kotlin and Spring Boot.
 You can use the following markdown to embed a badge:
 
 ```markdown
-![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/Jwhyee&color=4caf50)
+![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/Jwhyee&color=4caf50&r=111)
 ```
 
 It will render like this:
 
-![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/Jwhyee&color=4caf50&icon=zap&t=2025052801)
+![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/Jwhyee&color=4caf50&icon=zap&r=111)
 
 👉 You can also generate a badge interactively at:  
 [https://hit-s.kro.kr/count/generate](https://hit-s.kro.kr/count/generate)

@@ -115,8 +115,8 @@
         const encodedUrl = encodeURIComponent(url);
         const color = document.getElementById('color').value.replace('#', '');
 
-        const apiUrl = `/api/count/badge?url=${encodedUrl}&color=${color}`;
-        const displayUrl = `https://hit-s.kro.kr/api/count/badge?url=${url}&color=${color}`;
+        const apiUrl = `/api/count/badge?url=${encodedUrl}&color=${color}&r=v1`;
+        const displayUrl = `https://hit-s.kro.kr/api/count/badge?url=${url}&color=${color}&r=v1`;
 
         fetch(apiUrl)
             .then(res => res.text())
