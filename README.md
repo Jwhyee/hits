@@ -10,12 +10,12 @@ Built with Kotlin and Spring Boot.
 You can use the following markdown to embed a badge:
 
 ```markdown
-![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/Jwhyee&color=4caf50&icon=zap)
+![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/Jwhyee&color=4caf50)
 ```
 
 It will render like this:
 
-![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/Jwhyee&color=4caf50&icon=zap)
+![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/Jwhyee&color=4caf50)
 
 👉 You can also generate a badge interactively at:  
 [https://hit-s.kro.kr/count/generate](https://hit-s.kro.kr/count/generate)
@@ -27,7 +27,6 @@ It will render like this:
 - Increments view count for a specified `url`
 - Dynamically generates SVG badge with:
     - Custom `color` (right label background)
-    - Custom `icon` (left-side emoji)
 - Lightweight and fast: In-memory storage using `ConcurrentHashMap`
 
 ---
@@ -37,20 +36,19 @@ It will render like this:
 ### Endpoint
 
 ```
-GET /api/count/badge?url={URL}&title={TITLE}&color={COLOR}&icon={ICON}
+GET /api/count/badge?url={URL}&title={TITLE}&color={COLOR}
 ```
 
 ### Example
 
 ```
-GET /api/count/badge?url=https://github.com/your/repo&title=Views&color=green&icon=zap
+GET /api/count/badge?url=https://github.com/your/repo&title=Views&color=green
 ```
 
 | Parameter | Description                            |
 |-----------|----------------------------------------|
 | `url`     | Target URL to track view count         |
 | `color`   | Right-side badge background color      |
-| `icon`    | Left-side emoji icon (e.g. `zap`, `fire`, `star`) |
 
 ---
 

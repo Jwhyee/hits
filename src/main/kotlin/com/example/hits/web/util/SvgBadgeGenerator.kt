@@ -17,34 +17,32 @@ object SvgBadgeGenerator {
 
         // language=svg
         return """
-            <a href="/count/generate" target="_blank">
-              <svg xmlns="http://www.w3.org/2000/svg" width="$totalWidth" height="28" role="img" aria-label="$title: $count">
-                  <defs>
-                    <linearGradient id="smooth" x2="0" y2="100%">
-                      <stop offset="0" stop-color="#bbb" stop-opacity=".2"/>
-                      <stop offset="1" stop-opacity=".1"/>
-                    </linearGradient>
-                    <mask id="round">
-                      <rect width="$totalWidth" height="28" rx="6" fill="#fff"/>
-                    </mask>
-                  </defs>
-    
-                  <g mask="url(#round)">
-                    <rect width="$titleWidth" height="28" fill="#555"/>
-                    <rect x="$titleWidth" width="$countWidth" height="28" fill="#$color"/>
-                    <rect width="$totalWidth" height="28" fill="url(#smooth)"/>
-                  </g>
-    
-                  <!-- Twemoji 아이콘 -->
-                  <image x="6" y="6" width="16" height="16" href="$iconUrl" />
-    
-                  <!-- 텍스트 -->
-                  <g fill="#fff" font-family="Segoe UI, Roboto, sans-serif" font-size="13">
-                    <text x="28" y="19">$title</text>
-                    <text x="${titleWidth + 10}" y="19">$count</text>
-                  </g>
-              </svg>  
-            </a>
+            <svg xmlns="http://www.w3.org/2000/svg" width="$totalWidth" height="28" role="img" aria-label="$title: $count">
+              <defs>
+                <linearGradient id="smooth" x2="0" y2="100%">
+                  <stop offset="0" stop-color="#bbb" stop-opacity=".2"/>
+                  <stop offset="1" stop-opacity=".1"/>
+                </linearGradient>
+                <clipPath id="round">
+                  <rect width="$totalWidth" height="28" rx="6" ry="6"/>
+                </clipPath>
+              </defs>
+
+              <g clip-path="url(#round)">
+                <rect width="$titleWidth" height="28" fill="#555"/>
+                <rect x="$titleWidth" width="$countWidth" height="28" fill="#$color"/>
+                <rect width="$totalWidth" height="28" fill="url(#smooth)"/>
+              </g>
+
+              <!-- 아이콘 텍스트 버전 -->
+              <text x="8" y="19" fill="#fff" font-family="Segoe UI, sans-serif" font-size="13">⚡</text>
+
+              <!-- 텍스트 -->
+              <g fill="#fff" font-family="Segoe UI, sans-serif" font-size="13">
+                <text x="26" y="19">$title</text>
+                <text x="${titleWidth + 10}" y="19">$count</text>
+              </g>
+            </svg>
         """.trimIndent()
     }
 }
