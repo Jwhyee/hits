@@ -2,6 +2,7 @@ package com.example.hits.service
 
 import com.example.hits.domain.repository.HitRepository
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 
 @Service
 class HitService(
@@ -9,5 +10,9 @@ class HitService(
 ) {
     fun increment(url: String): Int {
         return repository.increment(url)
+    }
+
+    fun getRecentCounts(url: String): Map<LocalDate, Int> {
+        return repository.getRecentCounts(url)
     }
 }

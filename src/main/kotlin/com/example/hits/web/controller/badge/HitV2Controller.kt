@@ -30,13 +30,13 @@ class HitV2Controller(
         @RequestParam(required = false, defaultValue = "blue") color: String,
         @RequestParam(required = false, defaultValue = "zap") icon: String
     ): ResponseEntity<String> {
-        val count = hitService.increment(url)
+        val count = hitService.getRecentCounts(url)
 
         val resolvedTitle = title.takeIf { it.isNotBlank() } ?: url.substringAfterLast('/')
 
         logger.info("$resolvedTitle: $count")
 
-        val svg = SvgBadgeGenerator.generateV2(resolvedTitle, count, color, icon)
+        val svg = SvgBadgeGenerator.generateV2(resolvedTitle, icon, color, count)
 
         return ResponseEntity.ok()
             .contentType(MediaType.parseMediaType(MEDIA_TYPE_SVG))

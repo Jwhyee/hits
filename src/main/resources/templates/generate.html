@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Hit Badge Generator</title>
+
+    <!-- Coloris 라이브러리 추가 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
+
     <style>
         * {
             box-sizing: border-box;
@@ -24,6 +29,45 @@
             width: 600px;
         }
 
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .clr-field {
+            width: 100% !important;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            width: 100%;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
         .icon-option {
             display: inline-block;
             margin-right: 10px;
@@ -41,43 +85,6 @@
         .icon-option img {
             width: 32px;
             height: 32px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        input[type="text"],
-        input[type="color"],
-        select {
-            width: 100%;
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            width: 100%;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #45a049;
         }
 
         .preview {
@@ -119,11 +126,7 @@
 
     <div class="form-group">
         <label for="color">Background Color</label>
-        <div style="display: flex; align-items: center; gap: 12px;">
-            <input type="color" id="color" value="#4CAF50" />
-            <div id="color-preview"
-                 style="width: 24px; height: 24px; border: 1px solid #ccc; background-color: #4CAF50;"></div>
-        </div>
+        <input type="text" id="color" value="#4CAF50" data-coloris />
     </div>
 
     <div class="form-group">
@@ -152,7 +155,10 @@
 </div>
 
 <script>
-    // 아이콘 선택 시 selected 표시만 (요청 안 보냄)
+    const PROD_URL = "https://hit-s.kro.kr";
+    const LOCAL_URL = "http://localhost:8080";
+    const API_URL = "/api/v2/count/badge";
+
     document.querySelectorAll('.icon-option').forEach(el => {
         el.addEventListener('click', () => {
             document.querySelectorAll('.icon-option').forEach(opt => opt.classList.remove('selected'));
@@ -161,21 +167,17 @@
         });
     });
 
-    // 색상 미리보기 반영
-    document.getElementById('color').addEventListener('input', () => {
-        const preview = document.getElementById('color-preview');
-        preview.style.backgroundColor = document.getElementById('color').value;
+    document.getElementById('color-preview').addEventListener('click', () => {
+        document.getElementById('color').focus();
     });
 
-    // Title 입력값 유효성 검사
     document.getElementById('title').addEventListener('input', (e) => {
         const value = e.target.value;
         const hasKorean = /[\u3131-\u318E\uAC00-\uD7A3]/g.test(value);
-
         const errorBox = document.getElementById('title-error');
 
         if (hasKorean) {
-            e.target.value = ''; // 입력값 초기화
+            e.target.value = '';
             errorBox.style.display = 'block';
         } else {
             errorBox.style.display = 'none';
@@ -205,7 +207,8 @@
         query.append('icon', icon);
         query.append('r', 'v1');
 
-        const baseUrl = "/api/v2/count/badge";
+        const isLocal = location.origin.includes("localhost:8080");
+        const baseUrl = isLocal ? `${LOCAL_URL}${API_URL}` : `${PROD_URL}${API_URL}`;
         const fullUrl = `${baseUrl}?${query.toString()}`;
 
         fetch(fullUrl)
@@ -213,10 +216,12 @@
             .then(svg => {
                 document.getElementById('preview').innerHTML = svg;
                 document.getElementById('markdown-code').style.display = 'block';
-                document.getElementById('markdown-code').textContent = `![Hits](${decodeURIComponent(fullUrl)})`;
+                document.getElementById('markdown-code').textContent =
+                    `[![Hits](${decodeURIComponent(fullUrl)})](${PROD_URL}/count/generate)`;
             })
             .catch(err => {
-                document.getElementById('preview').innerHTML = `<p style="color: red;">Failed to load badge.</p>`;
+                document.getElementById('preview').innerHTML =
+                    `<p style="color: red;">Failed to load badge.</p>`;
                 document.getElementById('markdown-code').style.display = 'none';
                 console.error(err);
             });

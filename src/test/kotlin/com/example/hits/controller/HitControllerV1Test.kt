@@ -19,8 +19,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Import(HitControllerTest.TestConfig::class)
-class HitControllerTest : BehaviorSpec() {
+@Import(HitControllerV1Test.TestConfig::class)
+class HitControllerV1Test : BehaviorSpec() {
 
     @Autowired
     private lateinit var mockMvc: MockMvc
