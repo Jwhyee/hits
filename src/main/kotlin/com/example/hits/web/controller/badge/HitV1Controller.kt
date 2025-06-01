@@ -1,4 +1,4 @@
-package com.example.hits.web.controller
+package com.example.hits.web.controller.badge
 
 import com.example.hits.service.HitService
 import com.example.hits.web.api.API_V1
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping(API_V1)
-class HitController(
+class HitV1Controller(
     private val hitService: HitService
 ) {
-    val logger = LoggerFactory.getLogger(HitController::class.java)
+    val logger = LoggerFactory.getLogger(HitV1Controller::class.java)
 
     companion object {
         const val MEDIA_TYPE_SVG = "image/svg+xml"
