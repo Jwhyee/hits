@@ -20,10 +20,10 @@ Built with Kotlin and Spring Boot.
 ### 🔸 v2 – Visual Style
 
 ```markdown
-[![Hits](https://hit-s.kro.kr/api/v2/count/badge?url=https://github.com/your/repo&r=v2)](https://hit-s.kro.kr/count/generate)
+[![Hits](https://hit-s.kro.kr/api/v2/count/badge?url=https://github.com/Jwhyee&title=Jwhyee&color=4CAF50&icon=zap&r=v2)](https://hit-s.kro.kr/count/generate)
 ```
 
-[![Hits](https://hit-s.kro.kr/api/v2/count/badge?url=https://github.com/your/repo&r=v2)](https://hit-s.kro.kr/count/generate)
+[![Hits](https://hit-s.kro.kr/api/v2/count/badge?url=https://github.com/Jwhyee&title=Jwhyee&color=4CAF50&icon=zap&r=v2)](https://hit-s.kro.kr/count/generate)
 
 👉 You can also generate a badge interactively at:  
 [https://hit-s.kro.kr/count/generate](https://hit-s.kro.kr/count/generate)
