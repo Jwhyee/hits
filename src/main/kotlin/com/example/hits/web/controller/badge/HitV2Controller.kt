@@ -1,7 +1,7 @@
 package com.example.hits.web.controller.badge
 
 import com.example.hits.service.HitService
-import com.example.hits.web.api.API_V1
+import com.example.hits.web.api.API_V2
 import com.example.hits.web.util.SvgBadgeGenerator
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping(API_V1)
-class HitV1Controller(
+@RequestMapping(API_V2)
+class HitV2Controller(
     private val hitService: HitService
 ) {
-    val logger = LoggerFactory.getLogger(HitV1Controller::class.java)
+    val logger = LoggerFactory.getLogger(HitV2Controller::class.java)
 
     companion object {
         const val MEDIA_TYPE_SVG = "image/svg+xml"
@@ -26,16 +26,17 @@ class HitV1Controller(
     @GetMapping("/badge", produces = [MEDIA_TYPE_SVG])
     fun incrementAndGetBadge(
         @RequestParam url: String,
+        @RequestParam(required = false) title: String, // 사용자가 지정한 title
         @RequestParam(required = false, defaultValue = "blue") color: String,
         @RequestParam(required = false, defaultValue = "zap") icon: String
     ): ResponseEntity<String> {
         val count = hitService.increment(url)
 
-        val title = url.substringAfterLast('/')
+        val resolvedTitle = title.takeIf { it.isNotBlank() } ?: url.substringAfterLast('/')
 
-        logger.info("$title: $count")
+        logger.info("$resolvedTitle: $count")
 
-        val svg = SvgBadgeGenerator.generateV1(title, count, color, icon)
+        val svg = SvgBadgeGenerator.generateV2(resolvedTitle, count, color, icon)
 
         return ResponseEntity.ok()
             .contentType(MediaType.parseMediaType(MEDIA_TYPE_SVG))
