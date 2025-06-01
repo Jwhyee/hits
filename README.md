@@ -23,7 +23,7 @@ Built with Kotlin and Spring Boot.
 [![Hits](https://hit-s.kro.kr/api/v2/count/badge?url=https://github.com/Jwhyee&title=Jwhyee&color=4CAF50&icon=zap&r=v2)](https://hit-s.kro.kr/count/generate)
 ```
 
-[![Hits](https://hit-s.kro.kr/api/v2/count/badge?url=https://github.com/Jwhyee&title=Jwhyee&color=4CAF50&icon=zap&r=v2)](https://hit-s.kro.kr/count/generate)
+[![Hits](https://hit-s.kro.kr/api/v2/count/badge?url=https://github.com/Jwhyee&title=*✧⁺˚⁺+⁽⁽ଘ(｡•ө•｡)ଓ⁾⁾+ु+｡.:･゜*✧&color=f781ff&icon=heart&r=v2)](https://hit-s.kro.kr/count/generate)
 
 👉 You can also generate a badge interactively at [Generating page](https://hit-s.kro.kr/count/generate)
 
