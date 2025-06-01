@@ -205,7 +205,7 @@
         query.append('title', title || '');
         query.append('color', color);
         query.append('icon', icon);
-        query.append('r', 'v1');
+        query.append('r', 'v2');
 
         const isLocal = location.origin.includes("localhost:8080");
         const baseUrl = isLocal ? `${LOCAL_URL}${API_URL}` : `${PROD_URL}${API_URL}`;
