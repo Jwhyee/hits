@@ -30,6 +30,10 @@ class HitV2Controller(
         @RequestParam(required = false, defaultValue = "blue") color: String,
         @RequestParam(required = false, defaultValue = "zap") icon: String
     ): ResponseEntity<String> {
+        hitService.validateParams(url, title, color, icon)?.let {
+            return it
+        }
+
         val count = hitService.getRecentCounts(url)
 
         val resolvedTitle = title.takeIf { it.isNotBlank() } ?: url.substringAfterLast('/')
