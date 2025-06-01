@@ -10,10 +10,10 @@ Built with Kotlin and Spring Boot.
 ### 🔹 v1 – Simple Style
 
 ```markdown
-![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/Jwhyee&title=Visitors&icon=zap&color=4caf50&r=v1)
+![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/Jwhyee&icon=zap&color=4caf50&r=v1)
 ```
 
-![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/Jwhyee&title=Visitors&icon=zap&color=4caf50&r=v1)
+![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/Jwhyee&icon=zap&color=4caf50&r=v1)
 
 ---
 
@@ -36,27 +36,27 @@ Built with Kotlin and Spring Boot.
 
 - Classic-style SVG badge
 - Includes:
-  - Title (optional)
+  - Title (자동: url의 마지막 path segment)
   - Total view count
   - Custom icon (emoji-style SVG)
   - Custom right-side background color
 - Example:
   ```markdown
-  ![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/your/repo&title=Visitors&icon=zap&color=4caf50&r=v1)
+  ![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/your/repo&icon=zap&color=4caf50&r=v1)
   ```
 
 ### 🔸 v2 – Visual Style
 
 - Rich visual badge inspired by platforms like solved.ac
 - Includes:
-  - Custom title
+  - Custom title (optional, 미입력 시 url의 마지막 path segment 사용)
   - View counts over the past 3 days (today, 1 day ago, 2 days ago)
   - Simple bar chart visualization
   - Overall ranking among all badge users
 - Best used for **personal profile highlights**
 - Example:
   ```markdown
-  [![Hits](https://hit-s.kro.kr/api/v2/count/badge?url=https://github.com/your/repo&r=v2)](https://hit-s.kro.kr/count/generate)
+  [![Hits](https://hit-s.kro.kr/api/v2/count/badge?url=https://github.com/Jwhyee&title=Jwhyee&color=4CAF50&icon=zap&r=v2)](https://hit-s.kro.kr/count/generate)
   ```
 
 ---
@@ -77,19 +77,19 @@ Built with Kotlin and Spring Boot.
 ### Endpoint
 
 ```
-GET /api/count/badge?url={URL}&title={TITLE}&color={COLOR}&icon={ICON}&r={VERSION}
+GET /api/count/badge?url={URL}&color={COLOR}&icon={ICON}&r={VERSION}
 ```
 
 ### Example
 
 ```
-GET /api/count/badge?url=https://github.com/your/repo&title=Visitors&icon=fire&color=ff9800&r=v1
+GET /api/count/badge?url=https://github.com/your/repo&icon=fire&color=ff9800&r=v1
 ```
 
 | Parameter  | Description                                           |
 |------------|-------------------------------------------------------|
 | `url`      | Target URL to track view count                        |
-| `title`    | Optional badge title                                  |
+| `title`    | (v2 only, optional) Custom badge title                |
 | `color`    | Right-side badge background color (hex or name)       |
 | `icon`     | Emoji-style SVG icon (e.g., zap, fire, heart, star)   |
 | `r`        | Badge version: `v1` (simple), `v2` (visual)           |
