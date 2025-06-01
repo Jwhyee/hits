@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Hit Badge Generator</title>
 
-    <!-- Coloris 라이브러리 추가 -->
+    <!-- Coloris 라이브러리 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css"/>
     <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
 
@@ -102,6 +102,13 @@
             white-space: pre-wrap;
             word-break: break-all;
         }
+
+        .error {
+            color: red;
+            font-size: 13px;
+            margin-top: 4px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -111,22 +118,19 @@
     <div class="form-group">
         <label for="url">GitHub URL</label>
         <input type="text" id="url" placeholder="https://github.com/username/repo" />
-        <div id="url-error" style="color: red; font-size: 13px; display: none; margin-top: 4px;">
-            Please enter a valid GitHub URL.
-        </div>
+        <div id="url-error" class="error">Please enter a valid GitHub URL (max 60 characters).</div>
     </div>
 
     <div class="form-group">
         <label for="title">Badge Title (Optional)</label>
         <input type="text" id="title" placeholder="e.g. profile hits, visitors..." />
-        <div id="title-error" style="color: red; font-size: 13px; display: none; margin-top: 4px;">
-            Korean characters are not allowed in the title.
-        </div>
+        <div id="title-error" class="error">Title must be 30 characters or fewer and contain no Korean characters.</div>
     </div>
 
     <div class="form-group">
         <label for="color">Background Color</label>
         <input type="text" id="color" value="#4CAF50" data-coloris />
+        <div id="color-error" class="error">Color must be a 3 or 6 character hex code.</div>
     </div>
 
     <div class="form-group">
@@ -146,6 +150,7 @@
             </div>
         </div>
         <input type="hidden" id="icon" value="zap" />
+        <div id="icon-error" class="error">Icon must be 5 characters or fewer.</div>
     </div>
 
     <button onclick="generateBadge()">Generate</button>
@@ -167,10 +172,6 @@
         });
     });
 
-    document.getElementById('color-preview').addEventListener('click', () => {
-        document.getElementById('color').focus();
-    });
-
     document.getElementById('title').addEventListener('input', (e) => {
         const value = e.target.value;
         const hasKorean = /[\u3131-\u318E\uAC00-\uD7A3]/g.test(value);
@@ -189,15 +190,45 @@
         const title = document.getElementById('title').value.trim();
         const color = document.getElementById('color').value.replace('#', '');
         const icon = document.getElementById('icon').value;
-        const urlError = document.getElementById('url-error');
 
-        if (!url) {
+        const urlError = document.getElementById('url-error');
+        const titleError = document.getElementById('title-error');
+        const colorError = document.getElementById('color-error');
+        const iconError = document.getElementById('icon-error');
+
+        let hasError = false;
+
+        // Reset all error messages
+        [urlError, titleError, colorError, iconError].forEach(e => e.style.display = 'none');
+
+        if (!url || url.length > 60) {
+            urlError.textContent = `URL must be 60 characters or fewer. Currently: ${url.length}`;
             urlError.style.display = 'block';
+            hasError = true;
+        }
+
+        if (title.length > 30) {
+            titleError.textContent = `Title must be 30 characters or fewer. Currently: ${title.length}`;
+            titleError.style.display = 'block';
+            hasError = true;
+        }
+
+        if (!(color.length === 3 || color.length === 6)) {
+            colorError.textContent = `Color must be a 3 or 6 character hex code. Currently: ${color.length}`;
+            colorError.style.display = 'block';
+            hasError = true;
+        }
+
+        if (icon.length > 5) {
+            iconError.textContent = `Icon must be 5 characters or fewer. Currently: ${icon.length}`;
+            iconError.style.display = 'block';
+            hasError = true;
+        }
+
+        if (hasError) {
             document.getElementById('preview').innerHTML = '';
             document.getElementById('markdown-code').style.display = 'none';
             return;
-        } else {
-            urlError.style.display = 'none';
         }
 
         const query = new URLSearchParams();
