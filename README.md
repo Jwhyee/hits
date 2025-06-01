@@ -7,18 +7,57 @@ Built with Kotlin and Spring Boot.
 
 ## 📸 Example
 
-You can use the following markdown to embed a badge:
+### 🔹 v1 – Simple Style
 
 ```markdown
-![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/Jwhyee&color=4caf50&r=111)
+![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/Jwhyee&title=Visitors&icon=zap&color=4caf50&r=v1)
 ```
 
-It will render like this:
+![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/Jwhyee&title=Visitors&icon=zap&color=4caf50&r=v1)
 
-![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/Jwhyee&color=4caf50&icon=zap&r=111)
+---
+
+### 🔸 v2 – Visual Style
+
+```markdown
+[![Hits](https://hit-s.kro.kr/api/v2/count/badge?url=https://github.com/your/repo&r=v2)](https://hit-s.kro.kr/count/generate)
+```
+
+[![Hits](https://hit-s.kro.kr/api/v2/count/badge?url=https://github.com/your/repo&r=v2)](https://hit-s.kro.kr/count/generate)
 
 👉 You can also generate a badge interactively at:  
 [https://hit-s.kro.kr/count/generate](https://hit-s.kro.kr/count/generate)
+
+---
+
+## 🧭 Badge Versions
+
+### 🔹 v1 – Simple Style
+
+- Classic-style SVG badge
+- Includes:
+  - Title (optional)
+  - Total view count
+  - Custom icon (emoji-style SVG)
+  - Custom right-side background color
+- Example:
+  ```markdown
+  ![Hits](https://hit-s.kro.kr/api/count/badge?url=https://github.com/your/repo&title=Visitors&icon=zap&color=4caf50&r=v1)
+  ```
+
+### 🔸 v2 – Visual Style
+
+- Rich visual badge inspired by platforms like solved.ac
+- Includes:
+  - Custom title
+  - View counts over the past 3 days (today, 1 day ago, 2 days ago)
+  - Simple bar chart visualization
+  - Overall ranking among all badge users
+- Best used for **personal profile highlights**
+- Example:
+  ```markdown
+  [![Hits](https://hit-s.kro.kr/api/v2/count/badge?url=https://github.com/your/repo&r=v2)](https://hit-s.kro.kr/count/generate)
+  ```
 
 ---
 
@@ -26,7 +65,9 @@ It will render like this:
 
 - Increments view count for a specified `url`
 - Dynamically generates SVG badge with:
-    - Custom `color` (right label background)
+  - Custom color (v1, v2)
+  - Custom icon (v2)
+  - Multi-day history (v2)
 - Lightweight and fast: In-memory storage using `ConcurrentHashMap`
 
 ---
@@ -36,19 +77,22 @@ It will render like this:
 ### Endpoint
 
 ```
-GET /api/count/badge?url={URL}&title={TITLE}&color={COLOR}
+GET /api/count/badge?url={URL}&title={TITLE}&color={COLOR}&icon={ICON}&r={VERSION}
 ```
 
 ### Example
 
 ```
-GET /api/count/badge?url=https://github.com/your/repo&title=Views&color=green
+GET /api/count/badge?url=https://github.com/your/repo&title=Visitors&icon=fire&color=ff9800&r=v1
 ```
 
-| Parameter | Description                            |
-|-----------|----------------------------------------|
-| `url`     | Target URL to track view count         |
-| `color`   | Right-side badge background color      |
+| Parameter  | Description                                           |
+|------------|-------------------------------------------------------|
+| `url`      | Target URL to track view count                        |
+| `title`    | Optional badge title                                  |
+| `color`    | Right-side badge background color (hex or name)       |
+| `icon`     | Emoji-style SVG icon (e.g., zap, fire, heart, star)   |
+| `r`        | Badge version: `v1` (simple), `v2` (visual)           |
 
 ---
 
@@ -63,8 +107,7 @@ GET /api/count/badge?url=https://github.com/your/repo&title=Views&color=green
 
 ## 🧠 Inspiration
 
-This project was inspired by [`gjbae1212/hit-counter`](https://github.com/gjbae1212/hit-counter) – MIT License
-
+This project was inspired by [`gjbae1212/hit-counter`](https://github.com/gjbae1212/hit-counter) – MIT License  
 The implementation here is completely rewritten using Kotlin and Spring Boot.
 
 ---
