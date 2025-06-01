@@ -25,8 +25,7 @@ Built with Kotlin and Spring Boot.
 
 [![Hits](https://hit-s.kro.kr/api/v2/count/badge?url=https://github.com/Jwhyee&title=Jwhyee&color=4CAF50&icon=zap&r=v2)](https://hit-s.kro.kr/count/generate)
 
-👉 You can also generate a badge interactively at:  
-[https://hit-s.kro.kr/count/generate](https://hit-s.kro.kr/count/generate)
+👉 You can also generate a badge interactively at [Generating page](https://hit-s.kro.kr/count/generate)
 
 ---
 
@@ -36,7 +35,7 @@ Built with Kotlin and Spring Boot.
 
 - Classic-style SVG badge
 - Includes:
-  - Title (자동: url의 마지막 path segment)
+  - Title (the last path segment of the URL)
   - Total view count
   - Custom icon (emoji-style SVG)
   - Custom right-side background color
@@ -49,7 +48,7 @@ Built with Kotlin and Spring Boot.
 
 - Rich visual badge inspired by platforms like solved.ac
 - Includes:
-  - Custom title (optional, 미입력 시 url의 마지막 path segment 사용)
+  - Custom title (optional; if omitted, the last path segment of the URL will be used)
   - View counts over the past 3 days (today, 1 day ago, 2 days ago)
   - Simple bar chart visualization
   - Overall ranking among all badge users
