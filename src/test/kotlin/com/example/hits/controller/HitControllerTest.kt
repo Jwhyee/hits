@@ -1,9 +1,7 @@
 package com.example.hits.controller
 
 import com.example.hits.service.HitService
-import com.example.hits.web.api.API_ORIGIN
-import com.example.hits.web.api.API_V1_HITS
-import com.example.hits.web.controller.HitController
+import com.example.hits.web.api.API_V1
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.extensions.spring.SpringExtension
 import io.kotest.matchers.shouldBe
@@ -12,7 +10,6 @@ import io.mockk.every
 import io.mockk.mockk
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
@@ -38,11 +35,11 @@ class HitControllerTest : BehaviorSpec() {
             every { hitService.increment("https://github.com/test/repo") } returns 42
         }
 
-        given("GET $API_ORIGIN") {
+        given("GET $API_V1") {
             `when`("called with valid url") {
                 then("should return valid SVG") {
                     val result = mockMvc.perform(
-                        get("$API_ORIGIN/badge")
+                        get("$API_V1/badge")
                             .param("url", "https://github.com/test/repo")
                     ).andReturn().response
 

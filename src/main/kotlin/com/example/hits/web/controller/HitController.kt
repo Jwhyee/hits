@@ -1,20 +1,19 @@
 package com.example.hits.web.controller
 
 import com.example.hits.service.HitService
-import com.example.hits.web.api.API_ORIGIN
+import com.example.hits.web.api.API_V1
 import com.example.hits.web.util.SvgBadgeGenerator
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping(API_ORIGIN)
+@RequestMapping(API_V1)
 class HitController(
     private val hitService: HitService
 ) {
