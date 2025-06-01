@@ -44,6 +44,7 @@ class HitControllerV2Test : BehaviorSpec() {
                 yesterday to 80,
                 twoDaysAgo to 60
             )
+            every { hitService.validateParams("https://github.com/test/repo", any(), any(), any()) } returns null
         }
 
         given("GET $API_V2/badge") {

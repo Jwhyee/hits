@@ -33,6 +33,7 @@ class HitControllerV1Test : BehaviorSpec() {
 
         beforeSpec {
             every { hitService.increment("https://github.com/test/repo") } returns 42
+            every { hitService.validateParams("https://github.com/test/repo", any(), any(), any()) } returns null
         }
 
         given("GET $API_V1") {
