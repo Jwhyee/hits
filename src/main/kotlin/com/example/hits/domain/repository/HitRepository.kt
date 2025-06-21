@@ -7,6 +7,10 @@ import java.util.concurrent.atomic.AtomicInteger
 
 @Repository
 class HitRepository {
+    companion object {
+        // 오늘로부터 2일 전까지의 데이터만 유지
+        const val DATA_RETENTION_DAYS = 2L
+    }
 
     private val counter = ConcurrentHashMap<String, MutableMap<LocalDate, AtomicInteger>>()
 
@@ -15,7 +19,7 @@ class HitRepository {
         val dailyMap = counter.computeIfAbsent(url) { mutableMapOf() }
 
         // 3일 이전 기록 제거
-        val cutoff = today.minusDays(2)
+        val cutoff = today.minusDays(DATA_RETENTION_DAYS)
         dailyMap.entries.removeIf { it.key.isBefore(cutoff) }
 
         val todayCounter = dailyMap.computeIfAbsent(today) { AtomicInteger(0) }
@@ -28,10 +32,11 @@ class HitRepository {
     }
 
     fun getRecentCounts(url: String): Map<LocalDate, Int> {
-        increment(url)
-
         val today = LocalDate.now()
         val dailyMap = counter[url] ?: return emptyMap()
+
+        val cutoff = today.minusDays(2)
+        dailyMap.entries.removeIf { it.key.isBefore(cutoff) }
 
         return (0L..2L).associate { offset ->
             val date = today.minusDays(offset)
