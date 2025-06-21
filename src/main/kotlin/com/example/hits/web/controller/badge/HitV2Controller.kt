@@ -1,6 +1,7 @@
 package com.example.hits.web.controller.badge
 
 import com.example.hits.service.HitService
+import com.example.hits.service.Validation
 import com.example.hits.util.MEDIA_TYPE_SVG
 import com.example.hits.web.api.API_V2
 import com.example.hits.web.controller.badge.util.svgResponse
@@ -28,7 +29,7 @@ class HitV2Controller(
         @RequestParam(required = false, defaultValue = "blue") color: String,
         @RequestParam(required = false, defaultValue = "zap") icon: String
     ): ResponseEntity<String> {
-        val error = hitService.validateParams(url, title, color, icon)
+        val error = Validation.params(url, title, color, icon)
         if(error != null) {
             return error
         }
