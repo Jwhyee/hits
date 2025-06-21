@@ -1,7 +1,7 @@
 package com.example.hits.service
 
 import com.example.hits.domain.repository.HitRepository
-import com.example.hits.web.controller.badge.HitV2Controller
+import com.example.hits.util.MEDIA_TYPE_SVG
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
@@ -52,7 +52,7 @@ class HitService(
     """.trimIndent()
 
         return ResponseEntity.badRequest()
-            .contentType(MediaType.parseMediaType(HitV2Controller.MEDIA_TYPE_SVG))
+            .contentType(MediaType.parseMediaType(MEDIA_TYPE_SVG))
             .body(svg)
     }
 }
