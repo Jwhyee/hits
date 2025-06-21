@@ -1,6 +1,7 @@
 package com.example.hits.web.controller.badge
 
 import com.example.hits.service.HitService
+import com.example.hits.service.ParamValidation
 import com.example.hits.util.MEDIA_TYPE_SVG
 import com.example.hits.web.api.API_V2
 import com.example.hits.web.controller.badge.util.svgResponse
@@ -15,7 +16,8 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping(API_V2)
 class HitV2Controller(
-    private val hitService: HitService
+    private val hitService: HitService,
+    private val paramValidation: ParamValidation
 ) {
     companion object {
         private val logger = LoggerFactory.getLogger(HitV2Controller::class.java)
@@ -28,7 +30,7 @@ class HitV2Controller(
         @RequestParam(required = false, defaultValue = "blue") color: String,
         @RequestParam(required = false, defaultValue = "zap") icon: String
     ): ResponseEntity<String> {
-        val error = hitService.validateParams(url, title, color, icon)
+        val error = paramValidation.check(url, title, color, icon)
         if(error != null) {
             return error
         }
