@@ -3,9 +3,11 @@ package com.example.hits.service
 import com.example.hits.util.MEDIA_TYPE_SVG
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
+import org.springframework.stereotype.Service
 
-object Validation {
-    fun params(
+@Service
+class ParamValidation {
+    fun check(
         url: String,
         title: String,
         color: String,
