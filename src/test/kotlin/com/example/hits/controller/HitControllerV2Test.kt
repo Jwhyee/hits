@@ -5,8 +5,6 @@ import com.example.hits.service.ParamValidation
 import com.example.hits.web.api.API_V2
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.extensions.spring.SpringExtension
-import io.kotest.matchers.shouldBe
-import io.kotest.matchers.string.shouldContain
 import io.mockk.every
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -14,6 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Import
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.http.MediaType
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
+import org.hamcrest.Matchers.containsString
 import java.time.LocalDate
 
 @SpringBootTest
@@ -60,23 +62,21 @@ class HitControllerV2Test : BehaviorSpec() {
         given("GET $API_V2/badge") {
             `when`("called with full parameters") {
                 then("should return a valid SVG with counts") {
-                    val result = mockMvc.perform(
+                    mockMvc.perform(
                         get("$API_V2/badge")
                             .param("url", testUrl)
                             .param("title", "Visitors")
                             .param("icon", "zap")
                             .param("color", "4caf50")
-                    ).andReturn().response
-
-                    println("SVG 응답: ${result.contentAsString}")
-
-                    result.status shouldBe 200
-                    result.contentType shouldBe "image/svg+xml"
-                    result.contentAsString shouldContain "<svg"
-                    result.contentAsString shouldContain "Visitors"
-                    result.contentAsString shouldContain "100"
-                    result.contentAsString shouldContain "80"
-                    result.contentAsString shouldContain "60"
+                    )
+                    .andExpect(status().isOk)
+                    .andExpect(content().contentType("image/svg+xml"))
+                    .andExpect(content().string(containsString(today.toString())))
+                    .andExpect(content().string(containsString(yesterday.toString())))
+                    .andExpect(content().string(containsString(twoDaysAgo.toString())))
+                    .andExpect(content().string(containsString("100")))
+                    .andExpect(content().string(containsString("80")))
+                    .andExpect(content().string(containsString("60")))
                 }
             }
         }
