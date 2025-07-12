@@ -106,14 +106,23 @@ GET /api/count/badge?url=https://github.com/your/repo&icon=fire&color=ff9800&r=v
 
 ## 🧠 Inspiration
 
-This project was inspired by [`gjbae1212/hit-counter`](https://github.com/gjbae1212/hit-counter) – MIT License  
+This project was inspired by [`gjbae1212/hit-counter`](https://github.com/gjbae1212/hit-counter) – GPL-3.0 License
 The implementation here is completely rewritten using Kotlin and Spring Boot.
 
 ---
 
 ## 📄 License
 
-MIT License  
+This project is based on gjbae1212's hit-counter repository (GPL-3.0).
+The following major changes have been made:
+
+- Project structure fully rewritten using Kotlin + Spring Boot
+- Hit count storage switched from static to dynamic memory
+- New SVG V2 design with animation
+- In-memory and Redis support added
+- GitHub Actions for deployment
+
+Full source code is available under the same GPL v3.0 license.
 © 2025 Jwhyee
 
 See the [LICENSE](./LICENSE) file for full details.
