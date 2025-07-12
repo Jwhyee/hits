@@ -113,7 +113,10 @@ The implementation here is completely rewritten using Kotlin and Spring Boot.
 
 ## 📄 License
 
-MIT License  
+This project is a derivative of the original [hit-counter](https://github.com/gjbae1212/hit-counter) project by @gjbae1212, which is licensed under the GNU GPL v3.0.
+As such, this project is also licensed under the GPL v3.0.
+
+GNU GPL v3.0.
 © 2025 Jwhyee
 
 See the [LICENSE](./LICENSE) file for full details.
