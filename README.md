@@ -114,7 +114,7 @@ The implementation here is completely rewritten using Kotlin and Spring Boot.
 ## 📄 License
 
 This project is based on gjbae1212's hit-counter repository (GPL-3.0).
-The following major changes have been made:
+The following major changes have been made.
 
 - Project structure fully rewritten using Kotlin + Spring Boot
 - Hit count storage switched from static to dynamic memory
